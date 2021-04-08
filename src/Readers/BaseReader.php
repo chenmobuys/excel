@@ -69,7 +69,7 @@ abstract class BaseReader implements Iterator, Countable
      * 
      * @return void
      */
-    abstract public function load(string $filename, array $options = []);
+    abstract public function load($filename, $options = []);
 
     /**
      * Checks file is readable
@@ -78,7 +78,7 @@ abstract class BaseReader implements Iterator, Countable
      * 
      * @return bool
      */
-    abstract public function isReadable(string $filename);
+    abstract public function isReadable($filename);
 
     /**
      * Get option value by option name
@@ -117,7 +117,7 @@ abstract class BaseReader implements Iterator, Countable
     *
     * @return void
     */
-    public function setSheetIndex(int $sheetIndex)
+    public function setSheetIndex($sheetIndex)
     {
         if (!in_array($sheetIndex, array_keys($this->sheetNames))) {
             throw new ReaderException('Sheet index:' . $sheetIndex .' does not exist');
@@ -133,7 +133,7 @@ abstract class BaseReader implements Iterator, Countable
      *
      * @return void
      */
-    public function setSheetIndexByName(string $sheetName)
+    public function setSheetIndexByName($sheetName)
     {
         $sheetNamesReverse = array_reverse($this->sheetNames);
 

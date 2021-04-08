@@ -229,9 +229,12 @@ class Xlsx extends BaseReader
     /**
      * Load handle from filename
      *
+     * @param string $filename
+     * @param array $options
+     *
      * @return void
      */
-    public function load(string $filename, array $options = [])
+    public function load($filename, $options = [])
     {
         $this->options = array_merge($this->options, ['tempDir' => sys_get_temp_dir()], $options);
 
@@ -337,9 +340,13 @@ class Xlsx extends BaseReader
     }
 
     /**
-    * Checks file is readable
-    */
-    public function isReadable(string $filename)
+     * Checks file is readable
+     *
+     * @param string $filename
+     *
+     * @return bool
+     */
+    public function isReadable($filename)
     {
         $zip = new ZipArchive();
         $result = (bool) $zip->open($filename);
@@ -349,7 +356,9 @@ class Xlsx extends BaseReader
     }
     
     /**
-     * Creating shared string cache if the number of shared strings is acceptably low (or there is no limit on the amount
+     * Creating shared string cache if the number of shared strings is acceptably low (or there is no limit on the amount)
+     *
+     * @return void
      */
     private function prepareSharedStringCache()
     {
@@ -395,11 +404,11 @@ class Xlsx extends BaseReader
     /**
      * Retrieves a shared string value by its index
      *
-     * @param int Shared string index
+     * @param int $index
      *
-     * @return string Value
+     * @return string
      */
-    private function getSharedString(int $index)
+    private function getSharedString($index)
     {
         if (($this->option('sharedStringsCacheLimit') === null || $this->option('sharedStringsCacheLimit') > 0) && !empty($this->sharedStringsCache)) {
             if (isset($this->sharedStringsCache[$index])) {
@@ -502,12 +511,12 @@ class Xlsx extends BaseReader
     /**
      * Formats the value according to the index
      *
-     * @param string Cell value
-     * @param int Format index
+     * @param string $value Cell value
+     * @param int $index Format index
      *
      * @return string Formatted cell value
      */
-    private function formatValue(string $value, int $index)
+    private function formatValue($value, $index)
     {
         if (!is_numeric($value)) {
             return $value;
@@ -778,7 +787,7 @@ class Xlsx extends BaseReader
      *
      * @return mixed Numeric index (0-based) or boolean false if it cannot be calculated
      */
-    public function indexFromColumnLetter(string $letter)
+    public function indexFromColumnLetter($letter)
     {
         // $powers = [];
         $letter = strtoupper($letter);
@@ -804,7 +813,7 @@ class Xlsx extends BaseReader
      *
      * @param int Greatest common divisor
      */
-    public static function GCD(int $a, int $b)
+    public static function GCD($a, $b)
     {
         $a = abs($a);
         $b = abs($b);

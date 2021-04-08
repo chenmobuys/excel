@@ -21,9 +21,12 @@ class Csv extends BaseReader
     /**
      * Load handle from filename
      *
+     * @param string $filename
+     * @param array $options
+     * 
      * @return void
      */
-    public function load(string $filename, array $options = [])
+    public function load($filename, $options = [])
     {
         $this->handle = fopen($filename, 'r');
 
@@ -36,8 +39,12 @@ class Csv extends BaseReader
 
     /**
      * Checks file is readable
+     * 
+     * @param string $filename
+     * 
+     * @return bool
      */
-    public function isReadable(string $filename)
+    public function isReadable($filename)
     {
         // Attempt to guess mimetype
         $type = mime_content_type($filename);

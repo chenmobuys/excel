@@ -49,9 +49,12 @@ class Ods extends BaseReader
     /**
      * Load handle from filename
      *
+     * @param string $filename
+     * @param array $options
+     * 
      * @return void
      */
-    public function load(string $filename, array $options = [])
+    public function load($filename, $options = [])
     {
         $this->options = array_merge($this->options, ['tempDir' => sys_get_temp_dir()], $options);
 
@@ -94,9 +97,13 @@ class Ods extends BaseReader
     }
 
     /**
-    * Checks file is readable
-    */
-    public function isReadable(string $filename)
+     * Checks file is readable
+     * 
+     * @param string $filename
+     * 
+     * @return bool
+     */
+    public function isReadable($filename)
     {
         $zip = new ZipArchive();
         $result = (bool) $zip->open($filename);

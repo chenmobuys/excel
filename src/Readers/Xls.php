@@ -15,9 +15,12 @@ class Xls extends BaseReader
     /**
      * Load handle from filename
      *
+     * @param string $filename
+     * @param array $options
+     * 
      * @return void
      */
-    public function load(string $filename, array $options = [])
+    public function load($filename, $options = [])
     {
         $this->handle = new ExcelReader($filename, false, 'UTF-8');
         
@@ -36,8 +39,12 @@ class Xls extends BaseReader
 
     /**
      * Checks file is readable
+     * 
+     * @param string $filename
+     * 
+     * @return bool
      */
-    public function isReadable(string $filename)
+    public function isReadable($filename)
     {
         return (bool) (new OLEReader)->read($filename);
     }
@@ -49,7 +56,7 @@ class Xls extends BaseReader
     *
     * @return void
     */
-    public function setSheetIndex(int $sheetIndex)
+    public function setSheetIndex($sheetIndex)
     {
         parent::setSheetIndex($sheetIndex);
 

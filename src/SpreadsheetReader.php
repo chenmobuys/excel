@@ -17,6 +17,7 @@ class SpreadsheetReader
         'Ods' => Readers\Ods::class,
         'Xls' => Readers\Xls::class,
         'Xlsx' => Readers\Xlsx::class,
+        // TODO next to
         // 'Xml' => Readers\Xml::class,
         // 'Slk' => Reader\Slk::class,
         // 'Gnumeric' => Reader\Gnumeric::class,
@@ -87,13 +88,14 @@ class SpreadsheetReader
      * Load file reader
      *
      * @param string $filename
-     *
+     * @param array $options
+     * 
      * @return BaseReader
      */
-    public static function load($filename)
+    public static function load($filename, $options = [])
     {
         $reader = self::createReaderForFile($filename);
-        $reader->load($filename);
+        $reader->load($filename, $options);
         return $reader;
     }
 
