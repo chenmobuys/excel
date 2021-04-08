@@ -23,7 +23,7 @@ class OdsTest extends TestCase
 
         $this->assertEquals($sheetNamesExpected, $reader->getSheetNames());
         $this->assertEquals($rowsExpected, $rowsActual);
-        $this->assertIsNumeric($reader->count());
+        $this->assertTrue(is_numeric($reader->count()));
     
         $reader->setSheetIndex(1);
         $rowsExpected = [
@@ -36,6 +36,6 @@ class OdsTest extends TestCase
         }
 
         $this->assertEquals($rowsExpected, $rowsActual);
-        $this->assertIsNumeric($reader->count());
+        $this->assertTrue(is_numeric($reader->count()));
     }
 }

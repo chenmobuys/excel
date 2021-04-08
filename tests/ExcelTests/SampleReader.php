@@ -14,7 +14,7 @@ class SampleReader extends BaseReader
      *
      * @return void
      */
-    public function load(string $filename, array $options = [])
+    public function load($filename, $options = [])
     {
     }
 
@@ -25,7 +25,7 @@ class SampleReader extends BaseReader
      *
      * @return bool
      */
-    public function isReadable(string $filename)
+    public function isReadable($filename)
     {
         return true;
     }

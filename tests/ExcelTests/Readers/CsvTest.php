@@ -23,6 +23,6 @@ class CsvTest extends TestCase
         
         $this->assertEquals($sheetNamesExpected, $reader->getSheetNames());
         $this->assertEquals($rowsExpected, $rowsActual);
-        $this->assertIsNumeric($reader->count());
+        $this->assertTrue(is_numeric($reader->count()));
     }
 }
