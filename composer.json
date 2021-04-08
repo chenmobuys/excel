@@ -1,0 +1,29 @@
+{
+    "name": "chen/excel",
+    "description": "PHP spreadsheet exports and imports",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "chenmobuys",
+            "email": "chenmobuys@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Chen\\Excel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^5.6||>=7.0",
+        "ext-zip": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7||^6.5||^7.5||^8.5||^9.5"
+    }
+}

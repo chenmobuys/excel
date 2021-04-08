@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+        bootstrap="./tests/bootstrap.php"
+        backupGlobals="true"
+        colors="true"
+        cacheResultFile="/tmp/.phpspreadsheet.phpunit.result.cache"
+>
+    <php>
+        <ini name="memory_limit" value="10M"/>
+    </php>
+    <testsuite name="ChenExcel Unit Test Suite">
+        <directory>./tests/ExcelTests</directory>
+    </testsuite>
+</phpunit>
