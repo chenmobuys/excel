@@ -272,11 +272,14 @@ class Xlsx extends BaseReader
                         break;
                     }
                 }
-
                 $this->sheetNames[$sheetId] = (string) $sheet['name'];
             }
             ksort($this->sheetNames);
-            // $this->sheetNames = array_values($this->sheetNames);
+
+            foreach ($this->sheetNames as $sheetIndex => $sheetName) {
+                $this->sheetIndex = $sheetIndex;
+                break;
+            }
         }
 
         foreach ($this->sheetNames as $index => $name) {
@@ -677,10 +680,10 @@ class Xlsx extends BaseReader
                     $seconds = (int)($time * 86400);
                 }
 
-                $value = clone $this->BaseDate;
+                $value = clone $this->baseDate;
                 $value->add(new DateInterval('P'.$days.'D'.($seconds ? 'T'.$seconds.'S' : '')));
 
-                if (!$this->Options['ReturnDateTimeObjects']) {
+                if (!$this->option('returnDateTimeObjects')) {
                     $value = $value->format($format['Code']);
                 } else {
                     // A DateTime object is returned
@@ -860,14 +863,6 @@ class Xlsx extends BaseReader
             $cellHasSharedString = false;
 
             while ($this->valid = $this->worksheet->read()) {
-                
-                // Get the index of the cell
-                $index = $this->worksheet->getAttribute('r');
-                $letter = preg_replace('{[^[:alpha:]]}S', '', $index);
-                $index = $this->indexFromColumnLetter($letter);
-                // Get the style of the cell
-                $styleId = (int)$this->worksheet->getAttribute('s');
-
                 switch ($this->worksheet->name) {
                     // End of row
                     case 'row':
@@ -882,6 +877,13 @@ class Xlsx extends BaseReader
                         if ($this->worksheet->nodeType == XMLReader::END_ELEMENT) {
                             break;
                         }
+
+                        // Get the index of the cell
+                        $index = $this->worksheet->getAttribute('r');
+                        $letter = preg_replace('{[^[:alpha:]]}S', '', $index);
+                        $index = $this->indexFromColumnLetter($letter);
+                        // Get the style of the cell
+                        $styleId = (int)$this->worksheet->getAttribute('s');
 
                         // Determine cell type
                         if ($this->worksheet->getAttribute('t') == self::CELL_TYPE_SHARED_STR) {
@@ -903,13 +905,13 @@ class Xlsx extends BaseReader
                     case 'is':
                         if ($this->worksheet->nodeType != XMLReader::END_ELEMENT) {
                             $value = $this->worksheet->readString();
-
+                            
                             if ($cellHasSharedString) {
                                 $value = $this->getSharedString($value);
                             }
-                            
+                           
                             // Format value if necessary
-                            if ($value !== '' && $styleId && isset($this->styles[$styleId])) {
+                            if ($value !== '' && $styleId && isset($this->stylesCache[$styleId])) {
                                 $value = $this->formatValue($value, $styleId);
                             } elseif ($value) {
                                 $value = $this->generalFormat($value);
@@ -950,7 +952,9 @@ class Xlsx extends BaseReader
             $this->worksheet = new XMLReader;
         }
 
-        $worksheetPath = $this->tempDir . 'xl/worksheets/sheet' . ($this->sheetIndex + 1) . '.xml';
+        $worksheetPath = $this->tempDir . 'xl/worksheets/sheet' . $this->sheetIndex . '.xml';
+
+        echo $worksheetPath;
 
         $this->worksheet->open($worksheetPath);
 
@@ -997,8 +1001,8 @@ class Xlsx extends BaseReader
         }
         unset($this->sharedStringsPath);
 
-        if (isset($this->styles)) {
-            unset($this->styles);
+        if (isset($this->stylesCache)) {
+            unset($this->stylesCache);
         }
     }
 }
