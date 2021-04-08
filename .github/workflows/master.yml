@@ -24,10 +24,6 @@ jobs:
           - '7.4'
           - '8.0'
 
-        include:
-          - php-version: '8.1'
-            experimental: true
-
     name: PHP ${{ matrix.php-version }}
     
     steps:
