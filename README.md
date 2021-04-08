@@ -1,10 +1,10 @@
 ## ChenExcel
 
 [![Build Status](https://github.com/chenmobuys/excel/workflows/master/badge.svg)](https://github.com/chenmobuys/excel/actions)
-[![Latest Stable Version](https://poser.pugx.org/chen/excel/v/stable.svg)](https://packagist.org/packages/chen/excel) 
-[![Latest Unstable Version](https://poser.pugx.org/chen/excel/v/unstable.svg)](https://packagist.org/packages/chen/excel)
+[![Latest Stable Version](https://img.shields.io/packagist/v/chen/excel.svg)](https://packagist.org/packages/chen/excel) 
 [![Total Downloads](https://img.shields.io/packagist/dt/chen/excel)](https://packagist.org/packages/chen/excel) 
-[![License](https://poser.pugx.org/chen/excel/license)](https://packagist.org/packages/chen/excel) 
+[![License](https://img.shields.io/packagist/l/chen/excel)](https://packagist.org/packages/chen/excel) 
+[![Platform Support](https://img.shields.io/packagist/php-v/chen/excel)](https://github.com/chenmobuys/excel)
 
 ## 描述
 ChenExcel 主要目的是有效的读取表格中的数据，可以处理大型文件，它可能不是效率最高的，但至少不会耗尽内存
@@ -13,13 +13,13 @@ ChenExcel 主要目的是有效的读取表格中的数据，可以处理大型�
 
 ## 环境
 
-1. PHP >= 5.6
-3. Zip
+1. php 版本 ^5.6||^7.0||~8.0,<8.1
+3. Zip扩展
 2. [Composer](https://getcomposer.org/)
 
 ## 安装
 ```bash
-composer require "chen/excel:^0.1" -vvv
+composer require chen/excel -vvv
 ```
 
 ## 用法
