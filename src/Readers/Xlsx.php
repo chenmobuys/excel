@@ -954,8 +954,6 @@ class Xlsx extends BaseReader
 
         $worksheetPath = $this->tempDir . 'xl/worksheets/sheet' . $this->sheetIndex . '.xml';
 
-        echo $worksheetPath;
-
         $this->worksheet->open($worksheetPath);
 
         $this->valid = true;
