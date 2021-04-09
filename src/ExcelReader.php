@@ -349,7 +349,7 @@ class ExcelReader
         return null;
     }
 
-    public function fontProperty($row, $col, $sheet=0, $prop)
+    public function fontProperty($row, $col, $sheet, $prop)
     {
         $font = $this->fontRecord($row, $col, $sheet);
         if ($font!=null) {
