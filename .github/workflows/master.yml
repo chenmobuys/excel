@@ -9,8 +9,8 @@ on:
 jobs:
 
   build:
-  
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    name: PHP ${{ matrix.php-version }} ${{ matrix.os }}
     strategy:
       matrix:
         experimental:
@@ -23,9 +23,6 @@ jobs:
           - '7.3'
           - '7.4'
           - '8.0'
-
-    name: PHP ${{ matrix.php-version }}
-    
     steps:
     - uses: actions/checkout@v2
 
