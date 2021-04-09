@@ -9,12 +9,16 @@ on:
 jobs:
 
   build:
-    runs-on: ${{ matrix.os }}
     name: PHP ${{ matrix.php-version }} ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         experimental:
           - false
+        os: 
+          - windows-latest
+          - ubuntu-latest 
+          - macos-latest
         php-version:
           - '5.6'
           - '7.0'
