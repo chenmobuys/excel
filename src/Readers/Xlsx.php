@@ -268,9 +268,10 @@ class Xlsx extends BaseReader
 
         if (empty($this->sheetNames) && is_object($this->handle->sheets)) {
             foreach ($this->handle->sheets->sheet as $index => $sheet) {
-                $attributes = $sheet->attributes('r', true);
+                // $attributes = $sheet->attributes('r', true);
+                $attributes = $sheet->attributes();
                 foreach ($attributes as $name => $value) {
-                    if ($name == 'id') {
+                    if ($name == 'sheetId') {
                         $sheetId = (int) str_replace('rId', '', (string) $value);
                         break;
                     }
@@ -284,7 +285,7 @@ class Xlsx extends BaseReader
                 break;
             }
         }
-
+      
         foreach ($this->sheetNames as $index => $name) {
             $zip->extractTo($this->tempDir, 'xl/worksheets/sheet' . $index . '.xml');
             if ($zip->locateName('xl/worksheets/sheet'.$index.'.xml') !== false) {
@@ -365,6 +366,9 @@ class Xlsx extends BaseReader
         while ($this->sharedStrings->read()) {
             if ($this->sharedStrings->name == 'sst') {
                 $this->sharedStringsCount = $this->sharedStrings->getAttribute('count');
+                if(is_null($this->sharedStringsCount)) {
+                    $this->sharedStringsCount = $this->sharedStrings->getAttribute('uniqueCount');
+                }
                 break;
             }
         }
@@ -912,6 +916,7 @@ class Xlsx extends BaseReader
                     // Cell value
                     case 'v':
                     case 'is':
+                    case '#text':
                         if ($this->worksheet->nodeType != XMLReader::END_ELEMENT) {
                             $value = $this->worksheet->readString();
                             
@@ -925,10 +930,9 @@ class Xlsx extends BaseReader
                             } elseif ($value) {
                                 $value = $this->generalFormat($value);
                             }
-    
+
                             $this->currentRow[$index] = $value;
                         }
-
                         break;
                 }
             }
