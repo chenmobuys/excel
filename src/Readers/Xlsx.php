@@ -916,7 +916,6 @@ class Xlsx extends BaseReader
                     // Cell value
                     case 'v':
                     case 'is':
-                    case '#text':
                         if ($this->worksheet->nodeType != XMLReader::END_ELEMENT) {
                             $value = $this->worksheet->readString();
                             
