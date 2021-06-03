@@ -267,16 +267,30 @@ class Xlsx extends BaseReader
         }
 
         if (empty($this->sheetNames) && is_object($this->handle->sheets)) {
+            $xlRelsXml = new SimpleXMLElement($zip->getFromName('xl/_rels/workbook.xml.rels'));
+            $relationships = [];
+            foreach ($xlRelsXml as $relationship) {
+                $relationshipAttr = [];
+                foreach ($relationship->attributes() as $name => $attribute) {
+                    $relationshipAttr[$name] = (string) $attribute;
+                }
+                
+                $relationships[$relationshipAttr['Id']] = (int) str_replace('worksheets/sheet', '', $relationshipAttr['Target']);
+            }
+            unset($xlRelsXml);
+            
             foreach ($this->handle->sheets->sheet as $index => $sheet) {
-                // $attributes = $sheet->attributes('r', true);
-                $attributes = $sheet->attributes();
+                $attributes = $sheet->attributes('r', true);
+                $sheetId = 0;
                 foreach ($attributes as $name => $value) {
-                    if ($name == 'sheetId') {
-                        $sheetId = (int) str_replace('rId', '', (string) $value);
+                    if ($name == 'id') {
+                        $sheetId = $relationships[(string) $value];
                         break;
                     }
                 }
-                $this->sheetNames[$sheetId] = (string) $sheet['name'];
+                if ($sheetId > 0) {
+                    $this->sheetNames[$sheetId] = (string) $sheet['name'];
+                }
             }
             ksort($this->sheetNames);
 
@@ -293,7 +307,7 @@ class Xlsx extends BaseReader
                 $this->tempFiles[] = $this->tempDir . 'xl' . DIRECTORY_SEPARATOR . 'worksheets' . DIRECTORY_SEPARATOR . 'sheet' . $index . '.xml';
             }
         }
-
+        
         // If worksheet is present and is OK, parse the styles already
         if ($zip->locateName('xl/styles.xml') !== false) {
             $this->styles = new SimpleXMLElement($zip->getFromName('xl/styles.xml'));
@@ -366,7 +380,7 @@ class Xlsx extends BaseReader
         while ($this->sharedStrings->read()) {
             if ($this->sharedStrings->name == 'sst') {
                 $this->sharedStringsCount = $this->sharedStrings->getAttribute('count');
-                if(is_null($this->sharedStringsCount)) {
+                if (is_null($this->sharedStringsCount)) {
                     $this->sharedStringsCount = $this->sharedStrings->getAttribute('uniqueCount');
                 }
                 break;
