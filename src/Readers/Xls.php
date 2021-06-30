@@ -2,8 +2,8 @@
 
 namespace Chen\Excel\Readers;
 
-use Chen\Excel\ExcelReader;
-use Chen\Excel\OLEReader;
+use Chen\Excel\Readers\Xls\ExcelReader;
+use Chen\Excel\Readers\Xls\OLEReader;
 
 /**
  * Class for parsing XLS files

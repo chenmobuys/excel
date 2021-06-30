@@ -1,8 +1,8 @@
 <?php
 
-namespace Chen\Excel;
+namespace Chen\Excel\Readers\Xls;
 
-use Chen\Excel\OLEReader;
+use Chen\Excel\Readers\Xls\OLEReader;
 
 define('SPREADSHEET_EXCEL_READER_BIFF8', 0x600);
 define('SPREADSHEET_EXCEL_READER_BIFF7', 0x500);

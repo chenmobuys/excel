@@ -294,10 +294,7 @@ class Xlsx extends BaseReader
             }
             ksort($this->sheetNames);
 
-            foreach ($this->sheetNames as $sheetIndex => $sheetName) {
-                $this->sheetIndex = $sheetIndex;
-                break;
-            }
+            $this->sheetIndex = current(array_keys($this->sheetNames));
         }
       
         foreach ($this->sheetNames as $index => $name) {
