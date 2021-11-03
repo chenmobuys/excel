@@ -853,6 +853,8 @@ class Xlsx extends BaseReader
      */
     public function next()
     {
+         $this->currentRow = [];
+        
         $this->currentRowIndex++;
 
         if (!$this->rowOpen) {
