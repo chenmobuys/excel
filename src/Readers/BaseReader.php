@@ -135,7 +135,7 @@ abstract class BaseReader implements Iterator, Countable
      */
     public function setSheetIndexByName($sheetName)
     {
-        $sheetNamesReverse = array_reverse($this->sheetNames);
+        $sheetNamesReverse = array_flip($this->sheetNames);
 
         if (!isset($sheetNamesReverse[$sheetName])) {
             throw new ReaderException('Sheet name:' . $sheetName .' does not exist');
